@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonebook
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: phonebook
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: phonebook
+    spec:
+      containers:
+      - name: phonebook
+        image: "daximillian/phonebook"
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always

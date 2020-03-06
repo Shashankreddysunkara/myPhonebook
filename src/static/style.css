@@ -5,7 +5,7 @@
 }
 
 body {
-    background-image: url('https://www.walldevil.com/wallpapers/a16/resolution-gradient-photo-wallpapers-desktop.jpg');
+    background-color: #093f96;
     background-repeat:
 }
 
@@ -55,26 +55,6 @@ body {
     position:relative;
     margin-top: 15px;
     display: inline-block;
-
-}
-.img_div {
-    display: inline-block;
-    border-radius: 50%;
-    height: 60px;
-    width: 60px;
-    overflow: hidden;
-    position: relative;
-    float: right;
-    margin-right: 15px;
-
-}
-.profile_pic {
-    height: 100%;
-    width: auto;
-    margin: 0 auto;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
 
 }
 .vertical-align {
