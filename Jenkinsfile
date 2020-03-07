@@ -2,15 +2,15 @@
   node("linux") {
 
     stage("source") {
-    git 'https://github.com/daximillian/phonebook'
+    git 'https://github.com/daximillian/myPhonebook'
     }
     stage("build docker") {
-    customImage = docker.build("daximillian/phonebook")
+    customImage = docker.build("daximillian/myPhonebook")
     }
     stage("verify image") {
         try {
     sh '''
-        docker run --rm -d -p 8000:8080/tcp --name phonebook daximillian/phonebook
+        docker run --rm -d -p 8000:8080/tcp --name phonebook daximillian/myPhonebook
         sleep 20s
         curl_response=$(curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8000')
         if [ $curl_response -eq 200 ]
@@ -42,7 +42,7 @@
     sh '''
         export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
         kubectl apply -f deployment.yml
-        kubectl set image deployment/phonebook phonebook=daximillian/phonebook:"${BUILD_NUMBER}" --record
+        kubectl set image deployment/phonebook phonebook=daximillian/myPhonebook:"${BUILD_NUMBER}" --record
         kubectl apply -f service.yml
         kubectl apply -f loadbalancer.yml
         kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}" > appUrl.txt

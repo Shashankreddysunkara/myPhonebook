@@ -17,7 +17,7 @@ app = Flask("MyApp")
 conn = mysql.connector.connect(
          user='phoneapp',
          password='123456',
-         host='192.168.100.20',
+         host='mysql.service.consul',
          database='phonebook')
 #opens connection
 cur = conn.cursor()
@@ -34,9 +34,6 @@ def listings():
     l = []
     for each in cur.fetchall():
         l.append(list(each))
-    print(l)
-    for i in l:
-        print(i)
     setActiveTab("home")
     return render_template("listings.html", contact_list=l, title="My Phonebook", activeTab=activeTab)
 
