@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: phonebook
-        image: "daximillian/phonebook"
+        image: "daximillian/myphonebook"
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
         imagePullPolicy: Always
