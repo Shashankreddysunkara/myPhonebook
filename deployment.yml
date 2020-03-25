@@ -21,10 +21,6 @@ spec:
       - name: phonebook
         image: "daximillian/myphonebook"
         ports:
-        - containerPort: 8000
-              name: http-tcp
-              protocol: "TCP"        
+        - containerPort: 8000     
         - containerPort: 3306
-              name: mysql-tcp
-              protocol: "TCP"
         imagePullPolicy: Always
