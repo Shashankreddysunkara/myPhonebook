@@ -12,3 +12,8 @@ spec:
     targetPort: 8000
     nodePort: 30039
     protocol: TCP
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+    nodePort: 30040
+    protocol: TCP

@@ -17,7 +17,7 @@ app = Flask("MyApp")
 conn = mysql.connector.connect(
          user='phoneapp',
          password='123456',
-         host='mysql.service.consul',
+         host=10.0.3.27,
          database='phonebook')
 #opens connection
 cur = conn.cursor()
