@@ -7,11 +7,11 @@ import logging
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-dbh', '--dbhost', default='mysql.service.consul', action="store_true")
-parser.add_argument('-u', '--username', default='phoneapp', action="store_true")
-parser.add_argument('-psw', '--password', default='123456', action="store_true")
-parser.add_argument('-p', '--port', default='3306', action="store_true")
-parser.add_argument('-db', '--database', default='phonebook', action="store_true")
+parser.add_argument('-dbh', '--dbhost', default='mysql.service.consul')
+parser.add_argument('-u', '--username', default='phoneapp')
+parser.add_argument('-psw', '--password', default='123456')
+parser.add_argument('-p', '--port', default='3306')
+parser.add_argument('-db', '--database', default='phonebook')
 parser.add_argument('-l', '--log', default='info', choices=['debug', 'info', 'warning'])
 
 args = parser.parse_args()
