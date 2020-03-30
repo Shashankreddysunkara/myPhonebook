@@ -13,4 +13,4 @@ RUN pip3 install -r requirements.txt
 COPY src /app
 
 EXPOSE 8000
-CMD ["python","myPhonebook.py"]
+CMD ["python","myPhonebook.py", "--dbhost 10.0.3.24"]
