@@ -7,15 +7,12 @@ import logging
 # import argparse
 import os
 
-username = ''
-password = ''
-dbhost = ''
-database = ''
-port = ''
-log = ''
-
-username, password, dbhost, database, port, log = os.environ.get('PB_USER'), os.environ.get('PB_PASS'),
-os.environ.get('PB_HOST'), os.environ.get('PB_DB'), os.environ.get('PB_PORT'), os.environ.get('PB_LOG')
+username = os.environ.get('PB_USER')
+password = os.environ.get('PB_PASS')
+dbhost = os.environ.get('PB_HOST')
+database = os.environ.get('PB_DB')
+port = os.environ.get('PB_PORT')
+log = os.environ.get('PB_LOG')
 
 
 # log config
