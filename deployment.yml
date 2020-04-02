@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: phonebook
+  annotations:
+    prometheus.io/scrape: “true” 
 spec:
   replicas: 2
   selector:
@@ -20,7 +22,19 @@ spec:
       containers:
       - name: phonebook
         image: "daximillian/myphonebook"
+        env:
+        - name: PB_USER
+          value: "phoneapp"
+        - name: PB_PASS
+          value: "123456"
+        - name: PB_HOST
+          value: "mysql.service.consul"
+        - name: PB_DB
+          value: "phonebook"
+        - name: PB_PORT
+          value: "3306"
+        - name: PB_LOG
+          value: "info"
         ports:
         - containerPort: 8000     
-        - containerPort: 3306
         imagePullPolicy: Always

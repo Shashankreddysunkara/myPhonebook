@@ -17,10 +17,13 @@
     stage("deploy to EKS") {
     sh '''
         export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
+        MYSQL_IP=$(dig +short mysql.service.consul)
         kubectl apply -f deployment.yml
+        kubectl set env deployment/phonebook PB_HOST=$MYSQL_IP
         kubectl set image deployment/phonebook phonebook=daximillian/myphonebook:"${BUILD_NUMBER}" --record
         kubectl apply -f service.yml
         kubectl apply -f loadbalancer.yml
+        sleep 20s
         kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}" > appUrl.txt
     '''
     }

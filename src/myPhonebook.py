@@ -4,24 +4,26 @@ from prometheus_client import generate_latest, REGISTRY, Counter, Summary
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 import logging
-import argparse
+# import argparse
+import os
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-dbh', '--dbhost', default='mysql.service.consul', type=str)
-parser.add_argument('-u', '--username', default='phoneapp', type=str)
-parser.add_argument('-psw', '--password', default='123456', type=str)
-parser.add_argument('-p', '--port', default='3306', type=str)
-parser.add_argument('-db', '--database', default='phonebook', type=str)
-parser.add_argument('-l', '--log', default='info', choices=['debug', 'info', 'warning'])
+username = ''
+password = ''
+dbhost = ''
+database = ''
+port = ''
+log = ''
 
-args = parser.parse_args()
+username, password, dbhost, database, port, log = os.environ.get('PB_USER'), os.environ.get('PB_PASS'),
+os.environ.get('PB_HOST'), os.environ.get('PB_DB'), os.environ.get('PB_PORT'), os.environ.get('PB_LOG')
+
 
 # log config
 logging.basicConfig(format='%(asctime)s: %(message)s')
 logger = logging.getLogger("ExtractDeviceMetrics")
-if args.log == "info":
+if log == "info":
     logger.setLevel(logging.INFO)
-elif args.log == "debug":
+elif log == "debug":
     logger.setLevel(logging.DEBUG)
 else:
     logger.setLevel(logging.WARNING)
@@ -36,11 +38,11 @@ TIME_METRIC = Summary('http_request_processing_seconds',
 app = Flask("MyApp")
 
 conn = mysql.connector.connect(
-         user=args.username,
-         password=args.password,
-         host=args.dbhost,
-         port=args.port,
-         database=args.database)
+         user=username,
+         password=password,
+         host=dbhost,
+         port=port,
+         database=database)
 
 #opens connection
 cur = conn.cursor()
@@ -167,6 +169,23 @@ def metrics():
 
 
 if __name__ == "__main__":
+
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('-dbh', '--dbhost', default='mysql.service.consul', type=str)
+    # parser.add_argument('-u', '--username', default='phoneapp', type=str)
+    # parser.add_argument('-psw', '--password', default='123456', type=str)
+    # parser.add_argument('-p', '--port', default='3306', type=str)
+    # parser.add_argument('-db', '--database', default='phonebook', type=str)
+    # parser.add_argument('-l', '--log', default='info', choices=['debug', 'info', 'warning'])
+    # args = parser.parse_args()
+
+    # global username = args.username
+    # global password = args.password
+    # global dbhost = args.dbhost
+    # global database = args.database
+    # global port = args.port
+    # global log = args.log
+
     app.run(host='0.0.0.0', port=8000, debug=False)
 
 cur.close()
