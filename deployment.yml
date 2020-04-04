@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: phonebook
   annotations:
-    prometheus.io/scrape: “true” 
+    prometheus.io/probe: “true” 
 spec:
   replicas: 2
   selector:
