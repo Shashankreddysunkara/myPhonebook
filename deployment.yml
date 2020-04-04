@@ -1,9 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phonebook
-  annotations:
-    prometheus.io/probe: “true” 
+  name: phonebook 
 spec:
   replicas: 2
   selector:
@@ -18,6 +16,8 @@ spec:
     metadata:
       labels:
         app: phonebook
+      annotations:
+        prometheus.io/probe: “true”
     spec:
       containers:
       - name: phonebook
