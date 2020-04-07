@@ -115,7 +115,7 @@ def submit_new_student():
         try:
             cur.execute(query)
             records = cur.fetchone()
-            newid = int(records[0]) + 1
+            newid = int(records[0]) + 3
             logger.debug("New id is: {}".format(str(newid)))
             query = "insert into phonebook (id, name, email, phone) values ({},'{}','{}','{}')".format(newid, name, email, phone)
             try:
