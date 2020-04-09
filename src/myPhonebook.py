@@ -108,25 +108,18 @@ def submit_new_student():
     REQUESTS.labels(method='GET', endpoint="/submit_new_entry", status_code=200).inc() 
     setActiveTab("addEntries")
     if request.method == 'POST':
+        newId = request.form.get('id')
         name = request.form.get('name')
         email = request.form.get('email')
         phone = request.form.get('phone')
-        query = ("SELECT MAX(id) FROM phonebook")
+        query = "insert into phonebook (id, name, email, phone) values ({},'{}','{}','{}')".format(newId, name, email, phone)
         try:
             cur.execute(query)
-            records = cur.fetchone()
-            newid = int(records[0]) + 3
-            logger.debug("New id is: {}".format(str(newid)))
-            query = "insert into phonebook (id, name, email, phone) values ({},'{}','{}','{}')".format(newid, name, email, phone)
-            try:
-                cur.execute(query)
-                conn.commit()
-                lastId = cur.lastrowid
-                logger.info("Created a new student - id: {}, name: {}, email: {}, phone: {}".format(newid, name, email, phone))
-            except mysql.connector.Error as err:
-                logging.error(err)    
+            conn.commit()
+            lastId = cur.lastrowid
+            logger.info("Created a new student - id: {}, name: {}, email: {}, phone: {}".format(newId, name, email, phone))
         except mysql.connector.Error as err:
-            logging.error(err)
+            logging.error(err)    
     # return render_template("submit_new_entry.html", name=name,email=email,phone=phone, activeTab=activeTab)
     return redirect("/")
 
