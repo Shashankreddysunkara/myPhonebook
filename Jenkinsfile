@@ -10,12 +10,12 @@
     stage("verify image") {
         try {
     sh '''
-        PB_HOST=$(dig +short mysql.service.consul)
-        PB_USER='phoneapp'
-        PB_PASS='123456'
-        PB_DB='phonebook'
-        PB_PORT='3306'
-        PB_LOG='info'
+        export PB_HOST=$(dig +short mysql.service.consul)
+        export PB_USER='phoneapp'
+        export PB_PASS='123456'
+        export PB_DB='phonebook'
+        export PB_PORT='3306'
+        export PB_LOG='info'
         docker run --rm -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
         -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG --name phonebook daximillian/myphonebook
         sleep 20s
