@@ -10,8 +10,14 @@
     stage("verify image") {
         try {
     sh '''
-        MYSQL_IP=$(dig +short mysql.service.consul)
-        docker run --rm -d -p 8000:8000/tcp --name phonebook daximillian/myphonebook -e PB_HOST=$MYSQL_IP
+        PB_HOST=$(dig +short mysql.service.consul)
+        PB_USER='phoneapp'
+        PB_PASS='123456'
+        PB_DB='phonebook'
+        PB_PORT='3306'
+        PB_LOG='info'
+        docker run --rm -d -p 8000:8000/tcp --name phonebook daximillian/myphonebook -e PB_HOST -e PB_USER \
+        -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG
         sleep 20s
         curl_response=$(curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8000')
         if [ $curl_response -eq 200 ]
