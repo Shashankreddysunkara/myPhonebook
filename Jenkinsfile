@@ -74,7 +74,8 @@
     }
     stage("performance test") {
     sh '''
-        APP_URL = readFile('appUrl.txt').trim()
+        export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
+        APP_URL=$(kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}")
         sed 's/@SERVER@/$APP_URL/g' load-test.jmx > load-test-act.jmx
         jmeter -n -t load-test-act.jmx -l /home/ubuntu/load-test-"${BUILD_NUMBER}".jtl 
     '''
