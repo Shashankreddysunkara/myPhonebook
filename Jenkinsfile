@@ -45,10 +45,23 @@
     customImage.push("latest")
     }
     }
-    stage("deploy to EKS") {
+    stage("set up secrets") {
+        try {
     sh '''
         export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
         kubectl create -f boring-data.yml
+    '''
+    } catch (Exception e) {
+    sh '''
+        export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
+        kubectl delete -f boring-data.yml
+        kubectl create -f boring-data.yml
+    '''
+        }     
+    }
+    stage("deploy to EKS") {
+    sh '''
+        export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
         MYSQL_IP=$(dig +short mysql.service.consul)
         kubectl apply -f deployment.yml
         kubectl set env deployment/phonebook PB_HOST=$MYSQL_IP
