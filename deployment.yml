@@ -33,11 +33,13 @@ spec:
         env:
         - name: PB_USER
           valueFrom:
-            secretKeyRef: boring-data
+            secretKeyRef: 
+              name: boring-data
               key: username
         - name: PB_PASS
           valueFrom:
-            secretKeyRef: boring-data
+            secretKeyRef: 
+              name: boring-data
               key: password
         - name: PB_HOST
           value: "mysql.service.consul"
