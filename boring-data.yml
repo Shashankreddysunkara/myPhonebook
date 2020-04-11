@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: boring-data
+  type: Opaque
+data:
+  username: cGhvbmVhcHA=
+  password: MTIzNDU2

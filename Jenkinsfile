@@ -42,6 +42,7 @@
     stage("deploy to EKS") {
     sh '''
         export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
+        kubectl create -f boring-data.yml
         MYSQL_IP=$(dig +short mysql.service.consul)
         kubectl apply -f deployment.yml
         kubectl set env deployment/phonebook PB_HOST=$MYSQL_IP

@@ -23,11 +23,22 @@ spec:
       containers:
       - name: phonebook
         image: "daximillian/myphonebook"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 250m
+            memory: 128Mi
         env:
         - name: PB_USER
-          value: "phoneapp"
+          valueFrom:
+            secretKeyRef: boring-data
+              key: username
         - name: PB_PASS
-          value: "123456"
+          valueFrom:
+            secretKeyRef: boring-data
+              key: password
         - name: PB_HOST
           value: "mysql.service.consul"
         - name: PB_DB
