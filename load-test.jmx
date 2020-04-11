@@ -167,7 +167,6 @@
               <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>0</assertionsResultsToSave>
               <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
               <url>true</url>
               <threadCounts>true</threadCounts>
               <idleTime>true</idleTime>
@@ -204,7 +203,6 @@
               <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>0</assertionsResultsToSave>
               <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
               <url>true</url>
               <threadCounts>true</threadCounts>
               <idleTime>true</idleTime>
