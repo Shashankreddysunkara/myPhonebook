@@ -72,6 +72,13 @@
         kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}" > appUrl.txt
     '''
     }
+    stage("performance test") {
+    sh '''
+        APP_URL = readFile('appUrl.txt').trim()
+        sed 's/@SERVER@/$APP_URL/g' load-test.jmx > load-test-act.jmx
+        jmeter -n -t load-test-act.jmx -l /home/ubuntu/load-test-"${BUILD_NUMBER}".jtl 
+    '''
+    }
     stage("slack message"){
         APP_URL = readFile('appUrl.txt').trim()
         slackSend color: "good", message: "Build  #${env.BUILD_NUMBER} Finished Successfully. App URL: ${APP_URL}"
