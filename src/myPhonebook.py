@@ -159,23 +159,6 @@ def metrics():
 
 
 if __name__ == "__main__":
-
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('-dbh', '--dbhost', default='mysql.service.consul', type=str)
-    # parser.add_argument('-u', '--username', default='phoneapp', type=str)
-    # parser.add_argument('-psw', '--password', default='123456', type=str)
-    # parser.add_argument('-p', '--port', default='3306', type=str)
-    # parser.add_argument('-db', '--database', default='phonebook', type=str)
-    # parser.add_argument('-l', '--log', default='info', choices=['debug', 'info', 'warning'])
-    # args = parser.parse_args()
-
-    # global username = args.username
-    # global password = args.password
-    # global dbhost = args.dbhost
-    # global database = args.database
-    # global port = args.port
-    # global log = args.log
-
     app.run(host='0.0.0.0', port=8000, debug=False)
 
 cur.close()
