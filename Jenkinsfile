@@ -69,8 +69,19 @@
         kubectl apply -f service.yml
         kubectl apply -f loadbalancer.yml
         sleep 20s
-        kubectl autoscale deployment phonebook --cpu-percent=70 --min=1 --max=4
         kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}" > appUrl.txt
+    '''
+    stage("apply HPA")
+     try {
+    sh '''
+        export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
+        kubectl autoscale deployment phonebook --cpu-percent=70 --min=1 --max=4
+    '''
+     } catch (Exception e) {
+    sh '''
+        export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
+        kubectl delete hpa phonebook
+        kubectl autoscale deployment phonebook --cpu-percent=70 --min=1 --max=4
     '''
     }
     stage("performance test") {
