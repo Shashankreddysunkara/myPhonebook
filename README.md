@@ -10,3 +10,4 @@ A clone of https://github.com/karissame/myPhonebookwith some changes:
  - Added prometheus instrumentation
  - Added logging
  - Added Dockerfile, Jenkinsfile and all the necessary k8s yaml files.  
+ - Includes a basic load test, done with Jmeter
