@@ -71,8 +71,9 @@
         sleep 20s
         kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}" > appUrl.txt
     '''
-    stage("apply HPA")
-     try {
+    }
+    stage("apply HPA") {
+        try {
     sh '''
         export KUBECONFIG=/home/ubuntu/kubeconfig_opsSchool-eks
         kubectl autoscale deployment phonebook --cpu-percent=70 --min=1 --max=4
@@ -83,6 +84,7 @@
         kubectl delete hpa phonebook
         kubectl autoscale deployment phonebook --cpu-percent=70 --min=1 --max=4
     '''
+        }
     }
     stage("performance test") {
     sh '''
