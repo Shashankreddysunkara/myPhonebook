@@ -1,5 +1,5 @@
 # Phonebook
-A phone book application for linux with Web UI.
+A phone book application for linux with Web UI. Written in Python/MySQL/Flask.
 Runs in a docker container, built using a Jenkinsfile. 
 
 # Notes
