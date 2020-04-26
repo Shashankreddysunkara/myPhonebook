@@ -7,6 +7,7 @@ A clone of https://github.com/karissame/myPhonebookwith some changes:
  - Python 2 to Python 3
  - Removed profile picture treatment
  - Added ID per user
+ - Moved MySQL cursor properties to environment variables.
  - Added prometheus instrumentation
  - Added logging
  - Added Dockerfile, Jenkinsfile and all the necessary k8s yaml files.  
