@@ -11,11 +11,11 @@
             sh '''
                 #export PB_HOST=$(dig +short mysql.service.consul)
                 export PB_HOST=10.0.3.94        
-                export PB_USER='phoneapp'
-                export PB_PASS='123456'
-                export PB_DB='phonebook'
-                export PB_PORT='3306'
-                export PB_LOG='info'
+                export PB_USER=phoneapp
+                export PB_PASS=123456
+                export PB_DB=phonebook
+                export PB_PORT=3306
+                export PB_LOG=info
                 docker run -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
                 -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG --name phonebook dock101/myphonebook
                 sleep 20s
