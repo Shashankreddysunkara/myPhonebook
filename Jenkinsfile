@@ -1,5 +1,5 @@
     def customImage = ""
-  node("linux") {
+  node("manager") {
 
     stage("source") {
     git 'https://github.com/Shashankreddysunkara/myPhonebook.git'
