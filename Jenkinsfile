@@ -16,7 +16,7 @@
         export PB_DB='phonebook'
         export PB_PORT='3306'
         export PB_LOG='info'
-        docker run --rm -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
+        docker run -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
         -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG --name phonebook dock101/myphonebook
         sleep 20s
         curl_response=$(curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8000')
