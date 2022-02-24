@@ -18,7 +18,7 @@
                 export PB_LOG='info'
                 docker run --rm -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
                 -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG --name phonebook dock101/myphonebook
-                sleep 20s
+                sleep 60s
                 curl_response=$(curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8000')
                 if [ $curl_response -eq 200 ]
                 then
