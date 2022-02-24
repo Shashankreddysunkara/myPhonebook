@@ -1,6 +1,6 @@
 # Dockerized phonebook app for Ops School project
 FROM python:3.6
-MAINTAINER Nofar Spalter <nofars@gmail.com>
+LABEL Maintainer = Shashank
 
 # Create app directory
 WORKDIR /app

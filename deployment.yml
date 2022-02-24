@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: phonebook
-        image: "daximillian/myphonebook"
+        image: "dock101/myphonebook"
         resources:
           requests:
             cpu: 250m
