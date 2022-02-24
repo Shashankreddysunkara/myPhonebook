@@ -1,6 +1,5 @@
     def customImage = ""
   node("linux") {
-
     stage("source") {
     git 'https://github.com/Shashankreddysunkara/myPhonebook.git'
     }
@@ -9,36 +8,38 @@
     }
     stage("verify image") {
         try {
-    sh '''
-        #export PB_HOST=$(dig +short mysql.service.consul)
-        export PB_HOST=10.0.3.94        
-        export PB_USER='phoneapp'
-        export PB_PASS='123456'
-        export PB_DB='phonebook'
-        export PB_PORT='3306'
-        export PB_LOG='info'
-        docker run --rm -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
-        -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG --name phonebook dock101/myphonebook
-        sleep 20s
-        curl_response=$(curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8000')
-        if [ $curl_response -eq 200 ]
-        then
-            exit 0
-        else
-            exit 1
-        fi
-    ''' 
-    } catch (Exception e) {
-    sh '''
-        docker stop phonebook
-    '''
-    }  
+            sh '''
+                #export PB_HOST=$(dig +short mysql.service.consul)
+                export PB_HOST=10.0.3.94        
+                export PB_USER='phoneapp'
+                export PB_PASS='123456'
+                export PB_DB='phonebook'
+                export PB_PORT='3306'
+                export PB_LOG='info'
+                docker run --rm -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
+                -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG --name phonebook dock101/myphonebook
+                sleep 20s
+                curl_response=$(curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8000')
+                if [ $curl_response -eq 200 ]
+                then
+                    exit 0
+                else
+                    exit 1
+                fi
+            '''  
+        }   
+        catch (Exception e) {
+            sh '''
+                docker stop phonebook
+                docker rm phonebook -f
+            '''
+        }  
     }
-    stage("cleanup image") {
-    sh '''
-        docker stop phonebook
-    '''
-    }
+    // stage("cleanup image") {
+    // sh '''
+    //     docker stop phonebook
+    // '''
+    // }
     stage("push to DockerHub") {
         echo "Push to Dockerhub"
     withDockerRegistry(credentialsId: 'dockerhub.creds') {
