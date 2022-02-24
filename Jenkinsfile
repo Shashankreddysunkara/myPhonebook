@@ -1,5 +1,5 @@
     def customImage = ""
-  node("manager") {
+  node("linux") {
 
     stage("source") {
     git 'https://github.com/Shashankreddysunkara/myPhonebook.git'
@@ -10,7 +10,8 @@
     stage("verify image") {
         try {
     sh '''
-        export PB_HOST=$(dig +short mysql.service.consul)
+        // export PB_HOST=$(dig +short mysql.service.consul)
+        export PB_HOST=10.0.3.94
         export PB_USER='phoneapp'
         export PB_PASS='123456'
         export PB_DB='phonebook'
@@ -62,7 +63,8 @@
     stage("deploy to EKS") {
     sh '''
         export KUBECONFIG=/home/ubuntu/kubeconfig_ops-eks
-        MYSQL_IP=$(dig +short mysql.service.consul)
+        // MYSQL_IP=$(dig +short mysql.service.consul)
+        MYSQL_IP=10.0.3.94
         kubectl apply -f deployment.yml
         kubectl set env deployment/phonebook PB_HOST=$MYSQL_IP
         kubectl set image deployment/phonebook phonebook=dock101/myphonebook:"${BUILD_NUMBER}" --record
