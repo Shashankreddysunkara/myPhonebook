@@ -17,7 +17,7 @@
         export PB_DB='phonebook'
         export PB_PORT='3306'
         export PB_LOG='info'
-        docker run -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
+        docker run --rm -d -p 8000:8000/tcp -e PB_HOST -e PB_USER \
         -e PB_PASS -e PB_DB -e PB_PORT -e PB_LOG --name phonebook dock101/myphonebook
         sleep 20s
         curl_response=$(curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8000')
@@ -88,13 +88,13 @@
     '''
         }
     }
-    stage("performance test") {
-    sh '''
-        export KUBECONFIG=/home/ubuntu/kubeconfig_ops-eks
-        APP_URL=$(kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}")
-        sed 's/@SERVER@/'$APP_URL'/g' load-test.jmx > load-test-act.jmx
-        jmeter -n -t load-test-act.jmx -l /home/ubuntu/load-test-"${BUILD_NUMBER}".jtl 
-    '''
+    // stage("performance test") {
+    // sh '''
+    //     export KUBECONFIG=/home/ubuntu/kubeconfig_ops-eks
+    //     APP_URL=$(kubectl get svc phonebook-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}")
+    //     sed 's/@SERVER@/'$APP_URL'/g' load-test.jmx > load-test-act.jmx
+    //     jmeter -n -t load-test-act.jmx -l /home/ubuntu/load-test-"${BUILD_NUMBER}".jtl 
+    // '''
     }
     stage("slack message"){
         APP_URL = readFile('appUrl.txt').trim()
